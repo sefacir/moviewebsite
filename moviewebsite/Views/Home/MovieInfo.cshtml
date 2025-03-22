@@ -1,0 +1,26 @@
+@model sefaodev.Models.Movie
+
+@{
+    ViewData["Title"] = "Movie Info";
+}
+
+@if (Model != null)
+{
+    <h2>@Model.Title (@Model.ReleaseYear)</h2>
+    <p><strong>Director:</strong> @Model.Director</p>
+    <p><strong>Stars:</strong> @string.Join(", ", Model.Stars)</p>
+    <img src="@Model.ImageUrl" alt="@Model.Title" style="width:200px;height:auto;" />
+
+    <br />
+    <form asp-action="AddToCart" asp-controller="Home" method="post">
+        <input type="hidden" name="id" value="@Model.MovieID" />
+        <button type="submit">Add to Cart</button>
+    </form>
+
+    <br />
+    <a href="@Url.Action("HomePage", "Home")">Back to Home</a>
+}
+else
+{
+    <p style="color: red;">Movie not found!</p>
+}

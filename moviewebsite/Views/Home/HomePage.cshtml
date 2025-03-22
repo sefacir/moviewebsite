@@ -1,0 +1,19 @@
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+@{
+    var userName = HttpContextAccessor.HttpContext?.Request.Cookies["userFirstName"];
+    var movies = HttpContextAccessor.HttpContext?.Session.GetString("Movies") ?? "[]";
+    var movieList = System.Text.Json.JsonSerializer.Deserialize<List<sefaodev.Models.Movie>>(movies);
+}
+
+<h2>Movie List</h2>
+@foreach (var movie in movieList)
+{
+    <div>
+        <h3>
+            <a href="@Url.Action("MovieInfo", "Home", new { id = movie.MovieID })">@movie.Title</a>
+        </h3>
+        <p>Director: @movie.Director</p>
+        <img src="@movie.ImageUrl" alt="@movie.Title" style="width:150px;height:auto;" />
+    </div>
+}

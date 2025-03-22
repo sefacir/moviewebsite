@@ -1,0 +1,25 @@
+@model sefaodev.Models.LoginModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+</head>
+<body>
+    <h2>Login</h2>
+    @using (Html.BeginForm("Login", "Home", FormMethod.Post))
+    {
+        <label>UserName:</label>
+        @Html.TextBoxFor(m => m.UserName)
+
+        <br />
+
+        <label>Password:</label>
+        @Html.TextBoxFor(m => m.Password)
+
+        <br />
+
+        <button type="submit">Login</button>
+    }
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <h1>Movie Details</h1>
+    </header>
+
+    <section id="movie-details">
+
+    </section>
+
+    <button id="addToCart">Add to Cart</button>
+    <button id="goBack">Go Back</button>
+
+    <script>
+        const movies = [
+            { id: 1, title: "X-Men: The Last Stand", director: "Brett Ratner", stars: "Patrick Stewart, Hugh Jackman, Halle Berry", year: 2006 },
+            { id: 2, title: "Spider Man 2", director: "Sam Raimi", stars: "Tobey Maguire, Kirsten Dunst, Alfred Molina", year: 2004 },
+            { id: 3, title: "Spider Man 3", director: "Sam Raimi", stars: "Tobey Maguire, Kirsten Dunst, Topher Grace", year: 2007 },
+            { id: 4, title: "Valkyrie", director: "Bryan Singer", stars: "Tom Cruise, Bill Nighy, Carice van Houten", year: 2008 },
+            { id: 5, title: "Gladiator", director: "Ridley Scott", stars: "Russell Crowe, Joaquin Phoenix, Connie Nielsen", year: 2000 }
+        ];
+        const urlParams = new URLSearchParams(window.location.search);
+        const movieId = parseInt(urlParams.get("id"));
+
+        const movie = movies.find(m => m.id === movieId);
+        if (movie) {
+            document.getElementById("movie-details").innerHTML = `
+                <h2>${movie.title}</h2>
+                <p><strong>Director:</strong> ${movie.director}</p>
+                <p><strong>Stars:</strong> ${movie.stars}</p>
+                <p><strong>Release Year:</strong> ${movie.year}</p>
+            `;
+        } else {
+            document.getElementById("movie-details").innerHTML = "<p>Movie not found!</p>";
+        }
+
+        document.getElementById("goBack").addEventListener("click", function() {
+            window.location.href = "index.html"; 
+        });
+
+        document.getElementById("addToCart").addEventListener("click", function() {
+            if (!movie) return;
+            
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            if (!cart.some(m => m.id === movie.id)) {
+                cart.push(movie);
+                localStorage.setItem("cart", JSON.stringify(cart));
+                alert(`${movie.title} added to cart!`);
+            } else {
+                alert("This movie is already in the cart!");
+            }
+        });
+    </script>
+
+</body>
+</html>

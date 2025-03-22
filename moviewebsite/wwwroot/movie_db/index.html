@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ETD Movie DB</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <div class="login">
+            <span>Welcome! Please <a href="#">Login</a></span>
+        </div>
+        <h1>ETD Movie DB!</h1>
+        <nav>
+            <ul>
+                <li><a href="#">SHOW ALL</a></li>
+                <li><a href="#">LATEST TRAILERS</a></li>
+                <li><a href="#">TOP RATED</a></li>
+                <li><a href="#">MOST COMMENTED</a></li>
+            </ul>
+        </nav>
+        <div class="cart">
+            <button id="cartButton">MY CART!</button>
+        </div>
+        
+    </header>
+    
+    <section class="latest-trailers">
+        <h2>Latest Trailers</h2>
+        <div class="movie-list">
+            <div class="movie">
+                <a href="movie.html?id=1">
+                    <img src="images/xmen.jpg" alt="X-Men">
+                    <p>X-Men: The Last Stand</p>
+                </a>
+            </div>
+            <div class="movie">
+                <a href="movie.html?id=2">
+                    <img src="images/spiderman2.jpg" alt="Spider Man 2">
+                    <p>Spider Man 2</p>
+                </a>
+            </div>
+            <div class="movie">
+                <a href="movie.html?id=3">
+                    <img src="images/spiderman3.jpg" alt="Spider Man 3">
+                    <p>Spider Man 3</p>
+                </a>
+            </div>
+        </div>
+    </section>
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Login</h2>
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button id="loginButton">Login</button>
+    </div>
+</div>
+
+<section class="top-rated">
+    <h2>Top Rated</h2>
+    <div class="movie-list">
+        <div class="movie">
+            <a href="movie.html?id=5">
+                <img src="images/gladiator.jpg" alt="Gladiator">
+                <p>Gladiator</p>
+            </a>
+            <p>RATING ⭐⭐⭐⭐⭐</p>
+        </div>
+        <div class="movie">
+            <a href="movie.html?id=4">
+                <img src="images/valkyrie.jpg" alt="Valkyrie">
+                <p>Valkyrie</p>
+            </a>
+            <p>RATING ⭐⭐⭐⭐⭐</p>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let loginLink = document.querySelector(".login a"); 
+        let loginModal = document.getElementById("loginModal");  
+        let closeModal = document.querySelector(".close");  
+        let loginButton = document.getElementById("loginButton");  
+
+        loginLink.addEventListener("click", function (event) {
+            event.preventDefault();
+            loginModal.style.display = "block";
+        });
+        closeModal.addEventListener("click", function () {
+            loginModal.style.display = "none";
+        });
+        loginButton.addEventListener("click", function () {
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+
+            if (username === "admin" && password === "1234") {
+                document.querySelector(".login").innerHTML = "<span>Hoşgeldiniz, Admin!</span>";
+                loginModal.style.display = "none"; 
+            } else {
+                alert("Hatalı giriş, tekrar deneyin!");
+            }
+        });
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let cartButton = document.getElementById("cartButton");
+
+        cartButton.addEventListener("click", function () {
+            window.location.href = "cart.html";
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let latestTrailersSection = document.querySelector(".latest-trailers");
+        let topRatedSection = document.querySelector(".top-rated");
+
+        let showAll = document.querySelector("nav ul li:nth-child(1) a");
+        let latestTrailers = document.querySelector("nav ul li:nth-child(2) a");
+        let topRated = document.querySelector("nav ul li:nth-child(3) a");
+
+        latestTrailersSection.style.display = "block";
+        topRatedSection.style.display = "block";
+
+        showAll.addEventListener("click", function (event) {
+            event.preventDefault();
+            latestTrailersSection.style.display = "block";
+            topRatedSection.style.display = "block";
+        });
+
+        latestTrailers.addEventListener("click", function (event) {
+            event.preventDefault();
+            latestTrailersSection.style.display = "block";
+            topRatedSection.style.display = "none";
+        });
+
+        topRated.addEventListener("click", function (event) {
+            event.preventDefault();
+            latestTrailersSection.style.display = "none";
+            topRatedSection.style.display = "block";
+        });
+    });
+</script>
